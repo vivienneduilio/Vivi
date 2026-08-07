@@ -25,7 +25,10 @@
     </div>
     <div class="section-title"><span>Today's quests</span><button class="btn outline" onclick="openHabit()">＋</button></div>
     <div class="card" id="tasks"></div>
-    <div class="section-title"><span>💸 Spending power</span></div>
+    <div class="section-title"><span>🌙 General quests <span class="small">ongoing goals</span></span><button class="btn outline" onclick="openGeneralQuest()">＋</button></div>
+<div class="card" id="generalTasks"></div>
+
+<div class="section-title"><span>💸 Spending power</span></div>
     <div class="card"><div class="small">XP is your permission currency. Redeem only for discretionary purchases.</div><div style="margin-top:10px;font-size:27px;font-weight:900" id="spendXP">0 XP</div></div>
   </section>
 
@@ -137,5 +140,168 @@ function toast(t){const x=document.getElementById("toast");x.textContent=t;x.cla
 render();
 </script>
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}</script>
+
+<script>
+const V2KEY="vivi-life-xp-v2";
+let oldData = JSON.parse(localStorage.getItem("vivi-life-xp-v1")||"null");
+let v2 = JSON.parse(localStorage.getItem(V2KEY)||"null");
+if(!v2){
+  v2 = {
+    xp: oldData?.xp || 0,
+    totalEarned: oldData?.totalEarned || 0,
+    completions: oldData?.completions || 0,
+    redeemed: oldData?.redeemed || 0,
+    longest: oldData?.longest || 0,
+    streak: oldData?.streak || 0,
+    lastDate: oldData?.lastDate || null,
+    lastDailyDoneDate: null,
+    today: (oldData?.habits || [
+      {id:1,name:"Physical therapy",pts:25,done:false},
+      {id:2,name:"Workout",pts:20,done:false},
+      {id:3,name:"Wear brace for 15+ hours",pts:25,done:false},
+      {id:4,name:"Clean room",pts:15,done:false},
+      {id:5,name:"Work for Dad for 2 hours",pts:25,done:false},
+      {id:6,name:"Study",pts:20,done:false}
+    ]).map(h=>({...h,awardedDate:null})),
+    general:[
+      {id:101,name:"Work on business / marketing",pts:50,done:false,awarded:false},
+      {id:102,name:"Read",pts:30,done:false,awarded:false}
+    ],
+    rewards: oldData?.rewards || [
+      {id:1,name:"$10 fun spending",cost:100,emoji:"💗"},
+      {id:2,name:"$25 purchase",cost:250,emoji:"🎀"},
+      {id:3,name:"$50 shopping",cost:500,emoji:"🛍️"},
+      {id:4,name:"$100 shopping",cost:1000,emoji:"💿"}
+    ]
+  };
+  localStorage.setItem(V2KEY,JSON.stringify(v2));
+}
+function saveV2(){localStorage.setItem(V2KEY,JSON.stringify(v2))}
+function dateNow(){return new Date().toISOString().slice(0,10)}
+function esc2(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function level2(){return Math.floor(v2.xp/200)+1}
+
+function resetToday2(){
+  const t=dateNow();
+  if(v2.lastDate!==t){
+    v2.today.forEach(q=>{q.done=false;q.awardedDate=null});
+    v2.lastDate=t; saveV2();
+  }
+}
+function award2(points){
+  const before=level2();
+  v2.xp+=points; v2.totalEarned+=points; v2.completions++;
+  if(level2()>before) toast("✨ LEVEL UP!");
+  else toast("+"+points+" XP!");
+}
+function dailyStreak2(){
+  const t=dateNow();
+  if(v2.lastDailyDoneDate===t)return;
+  if(!v2.lastDailyDoneDate)v2.streak=1;
+  else{
+    const diff=Math.round((new Date(t)-new Date(v2.lastDailyDoneDate))/86400000);
+    v2.streak=diff===1?v2.streak+1:1;
+  }
+  v2.lastDailyDoneDate=t;
+  v2.longest=Math.max(v2.longest,v2.streak);
+}
+function questHTML2(q,type){
+  return `<div class="task ${q.done?'done':''}">
+    <div class="check" onclick="toggle2(${q.id},'${type}')">${q.done?'✓':''}</div>
+    <div class="name" onclick="toggle2(${q.id},'${type}')">${esc2(q.name)}</div>
+    <div class="pts">+${q.pts} XP</div>
+    <div class="actions">
+      <button class="iconbtn" onclick="edit2('${type}',${q.id})">✎</button>
+      <button class="iconbtn" onclick="delete2('${type}',${q.id})">×</button>
+    </div>
+  </div>`;
+}
+function rewardHTML2(r){
+ return `<div class="reward"><div class="emoji">${esc2(r.emoji)}</div>
+ <div class="reward-info"><div class="reward-name">${esc2(r.name)}</div><div class="small">${r.cost} XP</div></div>
+ <div class="actions"><button class="iconbtn" onclick="editReward2(${r.id})">✎</button>
+ <button class="iconbtn" onclick="deleteReward2(${r.id})">×</button>
+ <button class="btn buy" onclick="redeem2(${r.id})" ${v2.xp<r.cost?'disabled':''}>Redeem</button></div></div>`;
+}
+function render2(){
+ resetToday2();
+ const within=v2.xp%200;
+ document.getElementById("level").textContent="LEVEL "+level2();
+ document.getElementById("xp").textContent=v2.xp;
+ document.getElementById("toNext").textContent=200-within;
+ document.getElementById("bar").style.width=(within/200*100)+"%";
+ document.getElementById("streak").textContent=v2.streak;
+ document.getElementById("spendXP").textContent=v2.xp+" XP";
+ document.getElementById("totalEarned").textContent=v2.totalEarned;
+ document.getElementById("completions").textContent=v2.completions;
+ document.getElementById("longest").textContent=v2.longest;
+ document.getElementById("redeemed").textContent=v2.redeemed;
+ document.getElementById("todayTasks").innerHTML=v2.today.map(q=>questHTML2(q,"today")).join("")||'<div class="empty">Add a daily quest with ＋</div>';
+ document.getElementById("generalTasks").innerHTML=v2.general.map(q=>questHTML2(q,"general")).join("")||'<div class="empty">Add a general quest with ＋</div>';
+ document.getElementById("rewards").innerHTML=v2.rewards.map(rewardHTML2).join("")||'<div class="empty">Add a reward with ＋</div>';
+}
+function toggle2(id,type){
+ const list=type==="today"?v2.today:v2.general;
+ const q=list.find(x=>x.id===id); if(!q)return;
+ if(!q.done){
+   q.done=true;
+   if(type==="today"){
+     const t=dateNow();
+     if(q.awardedDate!==t){award2(q.pts);q.awardedDate=t;}
+     dailyStreak2();
+   }else{
+     if(!q.awarded){award2(q.pts);q.awarded=true;}
+   }
+ }else{
+   // Deselecting is always allowed. It never takes away XP.
+   q.done=false;
+ }
+ saveV2(); render2();
+}
+function form2(title,type,q){
+ const isEdit=!!q;
+ document.getElementById("sheet").innerHTML=`<h2>${title}</h2>
+ <div class="small">${type==="today"?"Today's quests reset each day.":"General quests stay until you finish them."}</div>
+ <input id="qname2" value="${isEdit?esc2(q.name):""}" placeholder="Quest name">
+ <input id="qpts2" type="number" min="1" value="${isEdit?q.pts:25}" placeholder="XP value">
+ <div class="row"><button class="btn" onclick="saveQuest2('${type}',${q?q.id:0})">${isEdit?"Save changes":"Add quest"}</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
+ document.getElementById("modal").classList.add("show");
+}
+function openGeneralQuest(){form2("Add general quest","general",null)}
+function edit2(type,id){const q=(type==="today"?v2.today:v2.general).find(x=>x.id===id);form2("Edit quest",type,q)}
+function saveQuest2(type,id){
+ const name=document.getElementById("qname2").value.trim(),pts=Number(document.getElementById("qpts2").value);
+ if(!name||!pts)return;
+ const list=type==="today"?v2.today:v2.general;
+ if(id){const q=list.find(x=>x.id===id);q.name=name;q.pts=pts}
+ else list.push(type==="today"?{id:Date.now(),name,pts,done:false,awardedDate:null}:{id:Date.now(),name,pts,done:false,awarded:false});
+ saveV2();closeModal();render2();
+}
+function delete2(type,id){
+ if(!confirm("Delete this quest?"))return;
+ const key=type==="today"?"today":"general";
+ v2[key]=v2[key].filter(q=>q.id!==id);saveV2();render2();
+}
+function editReward2(id){
+ const r=v2.rewards.find(x=>x.id===id);
+ document.getElementById("sheet").innerHTML=`<h2>Edit reward</h2>
+ <input id="rn2" value="${esc2(r.name)}" placeholder="Reward name">
+ <input id="rc2" type="number" min="1" value="${r.cost}" placeholder="XP cost">
+ <input id="re2" maxlength="2" value="${esc2(r.emoji)}" placeholder="Emoji">
+ <div class="row"><button class="btn" onclick="saveReward2(${id})">Save changes</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
+ document.getElementById("modal").classList.add("show");
+}
+function saveReward2(id){
+ const r=v2.rewards.find(x=>x.id===id),n=document.getElementById("rn2").value.trim(),c=Number(document.getElementById("rc2").value),e=document.getElementById("re2").value||"🎁";
+ if(!n||!c)return;r.name=n;r.cost=c;r.emoji=e;saveV2();closeModal();render2();
+}
+function deleteReward2(id){if(!confirm("Delete this reward?"))return;v2.rewards=v2.rewards.filter(r=>r.id!==id);saveV2();render2()}
+function redeem2(id){
+ const r=v2.rewards.find(x=>x.id===id);if(!r||v2.xp<r.cost)return;
+ v2.xp-=r.cost;v2.redeemed++;saveV2();render2();toast("🛍️ Redeemed: "+r.name);
+}
+render2();
+</script>
+
 </body>
 </html>
