@@ -3,305 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0b10">
-<title>Vivi Life XP</title><link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4faf">
+<link rel="manifest" href="manifest.json">
+<title>Vivi Life XP</title>
 <style>
-:root{--bg:#0b0b10;--card:#15151d;--pink:#ff74c8;--pink2:#ffb6e7;--white:#f8f6fb;--muted:#aaa6b3;--line:#292733;--green:#8ff0c1}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#2a1029 0,transparent 32%),radial-gradient(circle at 100% 20%,#1b1730 0,transparent 30%),var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-.app{max-width:620px;margin:auto;padding:22px 16px 100px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.brand{font-weight:900;letter-spacing:.08em;font-size:18px}.gear{border:1px solid var(--line);background:#17161f;color:white;border-radius:12px;padding:9px}
-.card{background:rgba(21,21,29,.92);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0;box-shadow:0 10px 35px #0004}.hero{padding:22px}.small{color:var(--muted);font-size:13px}.level{font-size:36px;font-weight:900;margin:4px 0}.xp{font-size:15px;color:var(--pink2)}.bar{height:12px;background:#282631;border-radius:99px;overflow:hidden;margin:12px 0}.fill{height:100%;background:linear-gradient(90deg,var(--pink),#b78cff);border-radius:99px;width:0}.streak{font-weight:800;color:#ffb2df}.section-title{display:flex;justify-content:space-between;align-items:center;font-size:19px;font-weight:900;margin:22px 2px 8px}.task{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.check{width:24px;height:24px;border-radius:8px;border:1px solid #4a4654;background:#111119;color:#111;display:grid;place-items:center;flex:none}.task.done .check{background:var(--pink);border-color:var(--pink)}.task.done .name{text-decoration:line-through;color:#777}.name{font-weight:700;flex:1}.pts{font-weight:800;color:var(--pink2);font-size:13px}.btn{border:0;border-radius:13px;background:var(--pink);color:#160c14;font-weight:900;padding:11px 14px}.outline{background:#191821;color:white;border:1px solid var(--line)}.reward{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.reward:last-child{border:0}.reward .emoji{font-size:25px}.reward-info{flex:1}.reward-name{font-weight:800}.buy:disabled{opacity:.35}.nav{position:fixed;bottom:0;left:0;right:0;background:#0d0d13ee;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:8px;padding:10px max(10px,calc((100vw - 620px)/2));z-index:3}.nav button{flex:1;max-width:140px;background:transparent;color:#aaa;border:0;padding:8px;border-radius:12px;font-weight:800}.nav button.active{color:var(--pink2);background:#211725}.view{display:none}.view.active{display:block}.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:5}.modal.show{display:flex}.sheet{background:#17161f;border:1px solid var(--line);border-radius:24px 24px 0 0;width:min(620px,100%);padding:20px}.sheet input{width:100%;padding:13px;border-radius:12px;background:#0f0f16;color:white;border:1px solid var(--line);margin:7px 0 12px}.row{display:flex;gap:8px}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-120px);background:#f8f6fb;color:#17121a;padding:12px 17px;border-radius:14px;font-weight:900;z-index:10;transition:.25s}.toast.show{transform:translateX(-50%) translateY(0)}.empty{color:var(--muted);padding:12px 0}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#111119;border:1px solid var(--line);border-radius:16px;padding:16px}.stat b{font-size:24px;display:block;margin-top:3px}
+:root{--bg:#08080b;--card:#131218;--pink:#ff4faf;--pink2:#ff91cf;--text:#faf7fb;--muted:#96919c;--line:#29262e;--green:#9be8c1}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(700px 350px at 50% -80px,#3a1730,transparent 68%),#08080b;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#fff .5px,transparent .5px);background-size:5px 5px}
+.app{max-width:650px;margin:auto;padding:24px 17px 105px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{font-weight:950;letter-spacing:.15em;font-size:14px}.card{background:linear-gradient(145deg,#18171e,#101015);border:1px solid var(--line);border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 15px 40px #0006}.hero{background:linear-gradient(145deg,#281522,#111015);border-color:#3e2837}.small{color:var(--muted);font-size:12px}.level{font-size:38px;font-weight:950;margin:3px 0}.xp{color:var(--pink2);font-size:14px}.bar,.budgetbar{height:8px;background:#2a272e;border-radius:99px;overflow:hidden;margin:12px 0}.fill,.budgetfill{height:100%;background:linear-gradient(90deg,#ff3fa9,#ff91cf);border-radius:99px}.budgetfill{background:var(--green)}.section{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 8px;font-size:17px;font-weight:900}.btn,.icon{border:0;border-radius:10px;padding:9px 12px;font-weight:900}.btn{background:var(--pink);color:#190914}.outline,.icon{background:#17161c;color:#eee;border:1px solid var(--line)}.icon{padding:6px 8px}.task,.reward{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.task:last-child,.reward:last-child{border:0}.check{width:24px;height:24px;border:1px solid #4a4550;border-radius:7px;display:grid;place-items:center;cursor:pointer;flex:none}.done .check{background:var(--pink);border-color:var(--pink);color:#150914}.done .name{text-decoration:line-through;color:#716d76}.name{flex:1;font-weight:700;font-size:14px}.pts{font-size:12px;color:var(--pink2);font-weight:800;white-space:nowrap}.money{color:var(--green)}.actions{display:flex;gap:4px}.reward-info{flex:1}.reward-name{font-weight:850}.empty{color:var(--muted);padding:12px 0}.nav{position:fixed;bottom:0;left:0;right:0;background:#0b0b0fe8;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:7px;padding:9px;z-index:4}.nav button{flex:1;max-width:140px;background:transparent;color:#89848e;border:0;padding:10px;border-radius:10px;font-weight:800}.nav .active{color:#fff;background:#24151f}.view{display:none}.view.active{display:block}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;z-index:8}.modal.show{display:flex}.sheet{width:min(650px,100%);background:#16151b;border:1px solid #38313a;border-radius:24px 24px 0 0;padding:20px;max-height:90vh;overflow:auto}.sheet input{width:100%;padding:13px;margin:7px 0 12px;border-radius:10px;border:1px solid var(--line);background:#0d0d12;color:#fff}.row{display:flex;gap:8px}.row>*{flex:1}.toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-130px);background:#fff;color:#171018;padding:11px 16px;border-radius:12px;font-weight:900;transition:.25s;z-index:20}.toast.show{transform:translate(-50%,0)}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#101015;border:1px solid var(--line);border-radius:15px;padding:15px}.stat b{display:block;font-size:24px;margin-top:4px}.danger{background:#32151f;color:#ffabc7;border:1px solid #552838}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top"><div class="brand">✦ VIVI LIFE XP ✦</div><button class="gear" onclick="openSettings()">⚙︎</button></div>
+<div class="top"><div class="brand">VIVI LIFE XP</div><button class="icon" onclick="settings()">⚙</button></div>
 
-  <section id="home" class="view active">
-    <div class="card hero">
-      <div class="small">CURRENT LEVEL</div><div class="level" id="level">LEVEL 1</div>
-      <div class="xp"><span id="xp">0</span> XP • <span id="toNext">200</span> to next level</div>
-      <div class="bar"><div class="fill" id="bar"></div></div>
-      <div class="streak">🔥 <span id="streak">0</span> day streak</div>
-    </div>
-    <div class="section-title"><span>Today's quests</span><button class="btn outline" onclick="openHabit()">＋</button></div>
-    <div class="card" id="tasks"></div>
-    <div class="section-title"><span>🌙 General quests <span class="small">ongoing goals</span></span><button class="btn outline" onclick="openGeneralQuest()">＋</button></div>
-<div class="card" id="generalTasks"></div>
+<div id="home" class="view active">
+<div class="card hero"><div class="small">YOUR PROGRESS</div><div class="level" id="level">LEVEL 1</div><div class="xp"><span id="xp">0</span> XP · <span id="need">200</span> to next level</div><div class="bar"><div class="fill" id="xpbar"></div></div><div class="small">Current streak: <b id="streak">0</b> days</div></div>
 
-<div class="section-title"><span>💸 Spending power</span></div>
-    <div class="card"><div class="small">XP is your permission currency. Redeem only for discretionary purchases.</div><div style="margin-top:10px;font-size:27px;font-weight:900" id="spendXP">0 XP</div></div>
-  </section>
-
-  <section id="shop" class="view">
-    <div class="section-title"><span>🛍️ Reward shop</span><button class="btn outline" onclick="openReward()">＋</button></div>
-    <div class="card" id="rewards"></div>
-  </section>
-
-  <section id="stats" class="view">
-    <div class="section-title"><span>📊 Progress</span></div>
-    <div class="statgrid">
-      <div class="stat"><div class="small">TOTAL XP EARNED</div><b id="totalEarned">0</b></div>
-      <div class="stat"><div class="small">COMPLETIONS</div><b id="completions">0</b></div>
-      <div class="stat"><div class="small">LONGEST STREAK</div><b id="longest">0</b></div>
-      <div class="stat"><div class="small">REWARDS REDEEMED</div><b id="redeemed">0</b></div>
-    </div>
-    <div class="card"><div style="font-weight:900">How your system works</div><p class="small">Complete habits to earn XP. Redeem XP for optional spending rewards. Essentials should stay outside the XP system.</p></div>
-  </section>
+<div class="section"><span>Today's Quests</span><span><button class="btn outline" onclick="resetToday()">Reset</button> <button class="btn" onclick="questForm('today')">＋</button></span></div>
+<div class="card" id="today"></div>
+<div class="section"><span>General Quests</span><button class="btn" onclick="questForm('general')">＋ Add</button></div>
+<div class="card" id="general"></div>
+<div class="section"><span>Spending Budget</span></div>
+<div class="card"><div class="small">AVAILABLE TO SPEND</div><div style="font-size:34px;font-weight:950">$<span id="money">0.00</span></div><div class="small">Earned from completed goals.</div></div>
 </div>
 
-<div class="nav">
-<button class="active" onclick="showView('home',this)">🏠 Home</button>
-<button onclick="showView('shop',this)">🛍️ Shop</button>
-<button onclick="showView('stats',this)">📊 Stats</button>
+<div id="rewards" class="view">
+<div class="section"><span>Rewards & Goals</span><button class="btn" onclick="rewardForm()">＋ Add</button></div>
+<div class="card" id="rewardList"></div>
 </div>
 
-<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
-<div class="toast" id="toast"></div>
+<div id="stats" class="view">
+<div class="section"><span>Progress</span></div>
+<div class="statgrid"><div class="stat"><div class="small">TOTAL XP</div><b id="total">0</b></div><div class="stat"><div class="small">COMPLETIONS</div><b id="complete">0</b></div><div class="stat"><div class="small">LONGEST STREAK</div><b id="longest">0</b></div><div class="stat"><div class="small">REWARDS USED</div><b id="used">0</b></div></div>
+<div class="card"><b>How it works</b><p class="small">XP is your progress currency. Spending Budget is separate. Quests can earn either or both. Nothing resets automatically.</p></div>
+</div>
+</div>
+<div class="nav"><button class="active" onclick="show('home',this)">Home</button><button onclick="show('rewards',this)">Rewards</button><button onclick="show('stats',this)">Stats</button></div>
+
+<div id="modal" class="modal"><div class="sheet" id="sheet"></div></div><div id="toast" class="toast"></div>
 
 <script>
-const KEY="vivi-life-xp-v1";
-const defaults={
- xp:0,totalEarned:0,completions:0,redeemed:0,longest:0,streak:0,lastDate:null,
- habits:[
-  {id:1,name:"Physical therapy",pts:25,done:false},
-  {id:2,name:"Homework / studying",pts:20,done:false},
-  {id:3,name:"Workout",pts:20,done:false},
-  {id:4,name:"Clean / reset room",pts:15,done:false}
- ],
- rewards:[
-  {id:1,name:"$10 fun spending",cost:100,emoji:"💗"},
-  {id:2,name:"$25 purchase",cost:250,emoji:"🎀"},
-  {id:3,name:"$50 shopping",cost:500,emoji:"🛍️"},
-  {id:4,name:"$100 shopping",cost:1000,emoji:"💿"}
- ]
-};
-let d=JSON.parse(localStorage.getItem(KEY)||"null")||structuredClone(defaults);
-function save(){localStorage.setItem(KEY,JSON.stringify(d))}
-function today(){return new Date().toISOString().slice(0,10)}
-function resetDay(){
- const t=today(); if(d.lastDate===t)return;
- if(d.lastDate){
-  const prev=new Date(d.lastDate), now=new Date(t);
-  const diff=Math.round((now-prev)/86400000);
-  if(diff===1){/* streak continues until completion */}
-  else if(diff>1)d.streak=0;
- }
- d.habits.forEach(h=>h.done=false); d.lastDate=t; save();
-}
-function level(){return Math.floor(d.xp/200)+1}
-function render(){
- resetDay();
- const lv=level(), within=d.xp%200;
- document.getElementById("level").textContent="LEVEL "+lv;
- document.getElementById("xp").textContent=d.xp;
- document.getElementById("toNext").textContent=200-within===200?200:200-within;
- document.getElementById("bar").style.width=(within/200*100)+"%";
- document.getElementById("streak").textContent=d.streak;
- document.getElementById("spendXP").textContent=d.xp+" XP";
- document.getElementById("totalEarned").textContent=d.totalEarned;
- document.getElementById("completions").textContent=d.completions;
- document.getElementById("longest").textContent=d.longest;
- document.getElementById("redeemed").textContent=d.redeemed;
- document.getElementById("tasks").innerHTML=d.habits.map(h=>`<div class="task ${h.done?'done':''}" onclick="toggleHabit(${h.id})"><div class="check">${h.done?'✓':''}</div><div class="name">${esc(h.name)}</div><div class="pts">+${h.pts} XP</div></div>`).join("")||'<div class="empty">Add your first quest with ＋</div>';
- document.getElementById("rewards").innerHTML=d.rewards.map(r=>`<div class="reward"><div class="emoji">${r.emoji}</div><div class="reward-info"><div class="reward-name">${esc(r.name)}</div><div class="small">${r.cost} XP</div></div><button class="btn buy" onclick="redeem(${r.id})" ${d.xp<r.cost?'disabled':''}>Redeem</button></div>`).join("");
-}
-function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function toggleHabit(id){
- const h=d.habits.find(x=>x.id===id); if(!h)return;
- if(h.done)return;
- h.done=true; d.xp+=h.pts; d.totalEarned+=h.pts; d.completions++;
- const done=d.habits.filter(x=>x.done).length;
- if(done===1){d.streak++; d.longest=Math.max(d.longest,d.streak)}
- if(d.xp%200<h.pts) toast("✨ LEVEL UP!");
- else toast("+"+h.pts+" XP!");
- save();render();
-}
-function redeem(id){
- const r=d.rewards.find(x=>x.id===id); if(!r||d.xp<r.cost)return;
- d.xp-=r.cost; d.redeemed++; save(); render(); toast("🛍️ Redeemed: "+r.name);
-}
-function showView(id,btn){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function openHabit(){
- document.getElementById("sheet").innerHTML=`<h2>Add a quest</h2><input id="hn" placeholder="e.g. Read 30 minutes"><input id="hp" type="number" min="1" placeholder="XP earned"><div class="row"><button class="btn" onclick="addHabit()">Add</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
- document.getElementById("modal").classList.add("show");
-}
-function addHabit(){const n=document.getElementById("hn").value.trim(),p=Number(document.getElementById("hp").value);if(!n||!p)return;d.habits.push({id:Date.now(),name:n,pts:p,done:false});save();closeModal();render()}
-function openReward(){
- document.getElementById("sheet").innerHTML=`<h2>Add a reward</h2><input id="rn" placeholder="e.g. New top"><input id="rc" type="number" min="1" placeholder="XP cost"><input id="re" maxlength="2" placeholder="Emoji e.g. 🎀"><div class="row"><button class="btn" onclick="addReward()">Add</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
- document.getElementById("modal").classList.add("show");
-}
-function addReward(){const n=document.getElementById("rn").value.trim(),c=Number(document.getElementById("rc").value),e=document.getElementById("re").value||"🎁";if(!n||!c)return;d.rewards.push({id:Date.now(),name:n,cost:c,emoji:e});save();closeModal();render()}
-function openSettings(){
- document.getElementById("sheet").innerHTML=`<h2>Settings</h2><p class="small">Your data is saved only on this device in your browser.</p><button class="btn outline" onclick="if(confirm('Reset all progress?')){localStorage.removeItem(KEY);location.reload()}">Reset everything</button> <button class="btn outline" onclick="closeModal()">Close</button>`;
- document.getElementById("modal").classList.add("show");
-}
-function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1500)}
-render();
+const KEY="vivi-life-xp-v3";
+let d=JSON.parse(localStorage.getItem(KEY)||"null")||{xp:0,money:0,total:0,complete:0,longest:0,streak:0,last:null,used:0,
+today:[
+{id:1,name:"Physical therapy",xp:25,money:0,done:false},{id:2,name:"Workout",xp:20,money:0,done:false},{id:3,name:"Wear brace for 15+ hours",xp:25,money:0,done:false},{id:4,name:"Clean room",xp:15,money:0,done:false},{id:5,name:"Work for Dad for 2 hours",xp:25,money:0,done:false},{id:6,name:"Study",xp:20,money:0,done:false}],
+general:[{id:101,name:"Work on business / marketing",xp:50,money:2,done:false},{id:102,name:"Read",xp:30,money:1,done:false}],rewards:[]};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(d));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1500)}
+function render(){let lv=Math.floor(d.xp/200)+1,rem=200-(d.xp%200);document.getElementById("level").textContent="LEVEL "+lv;document.getElementById("xp").textContent=d.xp;document.getElementById("need").textContent=rem;document.getElementById("xpbar").style.width=((d.xp%200)/200*100)+"%";document.getElementById("money").textContent=d.money.toFixed(2);document.getElementById("streak").textContent=d.streak;document.getElementById("total").textContent=d.total;document.getElementById("complete").textContent=d.complete;document.getElementById("longest").textContent=d.longest;document.getElementById("used").textContent=d.used;document.getElementById("today").innerHTML=list(d.today,"today");document.getElementById("general").innerHTML=list(d.general,"general");document.getElementById("rewardList").innerHTML=d.rewards.length?d.rewards.map(reward).join(""):'<div class="empty">No reward goals yet. Add one to start saving.</div>'}
+function list(a,t){return a.length?a.map(q=>`<div class="task ${q.done?"done":""}"><div class="check" onclick="toggle('${t}',${q.id})">${q.done?"✓":""}</div><div class="name" onclick="toggle('${t}',${q.id})">${esc(q.name)}</div><div class="pts">+${q.xp} XP${q.money?` · <span class="money">+$${q.money}</span>`:""}</div><div class="actions"><button class="icon" onclick="questForm('${t}',${q.id})">✎</button><button class="icon" onclick="delQuest('${t}',${q.id})">×</button></div></div>`).join(""):'<div class="empty">No quests yet.</div>'}
+function reward(r){let p=Math.min(100,r.saved/r.budget*100);return `<div class="reward"><div class="reward-info"><div class="reward-name">${esc(r.name)}</div><div class="small">$${r.saved.toFixed(2)} of $${r.budget.toFixed(2)}</div><div class="budgetbar"><div class="budgetfill" style="width:${p}%"></div></div></div><div class="actions"><button class="icon" onclick="rewardForm(${r.id})">✎</button><button class="icon" onclick="delReward(${r.id})">×</button>${r.saved>=r.budget?`<button class="btn" onclick="useReward(${r.id})">Use</button>`:""}</div></div>`}
+function toggle(t,id){let a=t==="today"?d.today:d.general,q=a.find(x=>x.id===id);if(!q)return;if(q.done){q.done=false}else{q.done=true;d.xp+=q.xp;d.money+=q.money||0;d.total+=q.xp;d.complete++;if(t==="today"){let now=new Date().toISOString().slice(0,10);if(d.last!==now){let prev=d.last?new Date(d.last):null,cur=new Date(now),diff=prev?Math.round((cur-prev)/86400000):0;d.streak=(!prev||diff!==1)?1:d.streak+1;d.last=now;d.longest=Math.max(d.longest,d.streak)}}toast("+"+q.xp+" XP"+(q.money?` · +$${q.money}`:""))}save();render()}
+function questForm(t,id){let q=id?(t==="today"?d.today:d.general).find(x=>x.id===id):null;document.getElementById("sheet").innerHTML=`<h2>${q?"Edit":"Add"} ${t==="today"?"Today's":"General"} Quest</h2><label>Name</label><input id="qn" value="${q?esc(q.name):""}"><label>XP earned</label><input id="qx" type="number" min="0" value="${q?q.xp:25}"><label>Spending budget earned</label><input id="qm" type="number" min="0" step=".50" value="${q?q.money||0:0}"><div class="row"><button class="btn" onclick="saveQuest('${t}',${id||0})">Save</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;openModal()}
+function saveQuest(t,id){let n=document.getElementById("qn").value.trim();if(!n)return;let q={id:id||Date.now(),name:n,xp:Number(document.getElementById("qx").value)||0,money:Number(document.getElementById("qm").value)||0,done:false},a=t==="today"?d.today:d.general;if(id){let old=a.find(x=>x.id===id);q.done=old.done;a[a.indexOf(old)]=q}else a.push(q);save();closeModal();render()}
+function delQuest(t,id){if(!confirm("Delete this quest?"))return;let k=t==="today"?"today":"general";d[k]=d[k].filter(x=>x.id!==id);save();render()}
+function resetToday(){if(!confirm("Reset Today's Quests? This only unchecks them. Earned XP and money stay."))return;d.today.forEach(q=>q.done=false);save();render();toast("Today's quests reset")}
+function rewardForm(id){let r=id?d.rewards.find(x=>x.id===id):null;document.getElementById("sheet").innerHTML=`<h2>${r?"Edit":"Add"} Reward Goal</h2><label>Name</label><input id="rn" value="${r?esc(r.name):""}" placeholder="New clothes"><label>Budget</label><input id="rb" type="number" min="1" step=".01" value="${r?r.budget:100}"><label>Amount already saved</label><input id="rs" type="number" min="0" step=".01" value="${r?r.saved:0}"><div class="row"><button class="btn" onclick="saveReward(${id||0})">Save</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;openModal()}
+function saveReward(id){let n=document.getElementById("rn").value.trim(),b=Number(document.getElementById("rb").value),s=Number(document.getElementById("rs").value);if(!n||b<=0)return;if(id){let r=d.rewards.find(x=>x.id===id);r.name=n;r.budget=b;r.saved=s}else d.rewards.push({id:Date.now(),name:n,budget:b,saved:s});save();closeModal();render()}
+function delReward(id){if(!confirm("Delete this reward goal?"))return;d.rewards=d.rewards.filter(x=>x.id!==id);save();render()}
+function useReward(id){let r=d.rewards.find(x=>x.id===id);if(d.money<r.budget){alert("You don't have enough available spending budget.");return}d.money-=r.budget;d.used++;r.saved=0;save();render();toast("Reward used")}
+function show(id,b){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
+function openModal(){document.getElementById("modal").classList.add("show")}function closeModal(){document.getElementById("modal").classList.remove("show")}
+function settings(){document.getElementById("sheet").innerHTML=`<h2>Settings</h2><p class="small">Your progress is saved in this browser. Nothing resets automatically.</p><button class="btn outline" onclick="backup()">Export backup</button> <button class="btn outline" onclick="restore()">Import backup</button><br><br><button class="btn danger" onclick="if(confirm('Reset everything?')){localStorage.removeItem(KEY);location.reload()}">Reset everything</button> <button class="btn outline" onclick="closeModal()">Close</button>`;openModal()}
+function backup(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));a.download="vivi-life-xp-backup.json";a.click()}
+function restore(){let i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>{let f=i.files[0],r=new FileReader();r.onload=()=>{try{d=JSON.parse(r.result);save();closeModal();render();toast("Backup imported")}catch(e){alert("Invalid backup")}};r.readAsText(f)};i.click()}
+render();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}</script>
-
-<script>
-const V2KEY="vivi-life-xp-v2";
-let oldData = JSON.parse(localStorage.getItem("vivi-life-xp-v1")||"null");
-let v2 = JSON.parse(localStorage.getItem(V2KEY)||"null");
-if(!v2){
-  v2 = {
-    xp: oldData?.xp || 0,
-    totalEarned: oldData?.totalEarned || 0,
-    completions: oldData?.completions || 0,
-    redeemed: oldData?.redeemed || 0,
-    longest: oldData?.longest || 0,
-    streak: oldData?.streak || 0,
-    lastDate: oldData?.lastDate || null,
-    lastDailyDoneDate: null,
-    today: (oldData?.habits || [
-      {id:1,name:"Physical therapy",pts:25,done:false},
-      {id:2,name:"Workout",pts:20,done:false},
-      {id:3,name:"Wear brace for 15+ hours",pts:25,done:false},
-      {id:4,name:"Clean room",pts:15,done:false},
-      {id:5,name:"Work for Dad for 2 hours",pts:25,done:false},
-      {id:6,name:"Study",pts:20,done:false}
-    ]).map(h=>({...h,awardedDate:null})),
-    general:[
-      {id:101,name:"Work on business / marketing",pts:50,done:false,awarded:false},
-      {id:102,name:"Read",pts:30,done:false,awarded:false}
-    ],
-    rewards: oldData?.rewards || [
-      {id:1,name:"$10 fun spending",cost:100,emoji:"💗"},
-      {id:2,name:"$25 purchase",cost:250,emoji:"🎀"},
-      {id:3,name:"$50 shopping",cost:500,emoji:"🛍️"},
-      {id:4,name:"$100 shopping",cost:1000,emoji:"💿"}
-    ]
-  };
-  localStorage.setItem(V2KEY,JSON.stringify(v2));
-}
-function saveV2(){localStorage.setItem(V2KEY,JSON.stringify(v2))}
-function dateNow(){return new Date().toISOString().slice(0,10)}
-function esc2(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function level2(){return Math.floor(v2.xp/200)+1}
-
-function resetToday2(){
-  const t=dateNow();
-  if(v2.lastDate!==t){
-    v2.today.forEach(q=>{q.done=false;q.awardedDate=null});
-    v2.lastDate=t; saveV2();
-  }
-}
-function award2(points){
-  const before=level2();
-  v2.xp+=points; v2.totalEarned+=points; v2.completions++;
-  if(level2()>before) toast("✨ LEVEL UP!");
-  else toast("+"+points+" XP!");
-}
-function dailyStreak2(){
-  const t=dateNow();
-  if(v2.lastDailyDoneDate===t)return;
-  if(!v2.lastDailyDoneDate)v2.streak=1;
-  else{
-    const diff=Math.round((new Date(t)-new Date(v2.lastDailyDoneDate))/86400000);
-    v2.streak=diff===1?v2.streak+1:1;
-  }
-  v2.lastDailyDoneDate=t;
-  v2.longest=Math.max(v2.longest,v2.streak);
-}
-function questHTML2(q,type){
-  return `<div class="task ${q.done?'done':''}">
-    <div class="check" onclick="toggle2(${q.id},'${type}')">${q.done?'✓':''}</div>
-    <div class="name" onclick="toggle2(${q.id},'${type}')">${esc2(q.name)}</div>
-    <div class="pts">+${q.pts} XP</div>
-    <div class="actions">
-      <button class="iconbtn" onclick="edit2('${type}',${q.id})">✎</button>
-      <button class="iconbtn" onclick="delete2('${type}',${q.id})">×</button>
-    </div>
-  </div>`;
-}
-function rewardHTML2(r){
- return `<div class="reward"><div class="emoji">${esc2(r.emoji)}</div>
- <div class="reward-info"><div class="reward-name">${esc2(r.name)}</div><div class="small">${r.cost} XP</div></div>
- <div class="actions"><button class="iconbtn" onclick="editReward2(${r.id})">✎</button>
- <button class="iconbtn" onclick="deleteReward2(${r.id})">×</button>
- <button class="btn buy" onclick="redeem2(${r.id})" ${v2.xp<r.cost?'disabled':''}>Redeem</button></div></div>`;
-}
-function render2(){
- resetToday2();
- const within=v2.xp%200;
- document.getElementById("level").textContent="LEVEL "+level2();
- document.getElementById("xp").textContent=v2.xp;
- document.getElementById("toNext").textContent=200-within;
- document.getElementById("bar").style.width=(within/200*100)+"%";
- document.getElementById("streak").textContent=v2.streak;
- document.getElementById("spendXP").textContent=v2.xp+" XP";
- document.getElementById("totalEarned").textContent=v2.totalEarned;
- document.getElementById("completions").textContent=v2.completions;
- document.getElementById("longest").textContent=v2.longest;
- document.getElementById("redeemed").textContent=v2.redeemed;
- document.getElementById("todayTasks").innerHTML=v2.today.map(q=>questHTML2(q,"today")).join("")||'<div class="empty">Add a daily quest with ＋</div>';
- document.getElementById("generalTasks").innerHTML=v2.general.map(q=>questHTML2(q,"general")).join("")||'<div class="empty">Add a general quest with ＋</div>';
- document.getElementById("rewards").innerHTML=v2.rewards.map(rewardHTML2).join("")||'<div class="empty">Add a reward with ＋</div>';
-}
-function toggle2(id,type){
- const list=type==="today"?v2.today:v2.general;
- const q=list.find(x=>x.id===id); if(!q)return;
- if(!q.done){
-   q.done=true;
-   if(type==="today"){
-     const t=dateNow();
-     if(q.awardedDate!==t){award2(q.pts);q.awardedDate=t;}
-     dailyStreak2();
-   }else{
-     if(!q.awarded){award2(q.pts);q.awarded=true;}
-   }
- }else{
-   // Deselecting is always allowed. It never takes away XP.
-   q.done=false;
- }
- saveV2(); render2();
-}
-function form2(title,type,q){
- const isEdit=!!q;
- document.getElementById("sheet").innerHTML=`<h2>${title}</h2>
- <div class="small">${type==="today"?"Today's quests reset each day.":"General quests stay until you finish them."}</div>
- <input id="qname2" value="${isEdit?esc2(q.name):""}" placeholder="Quest name">
- <input id="qpts2" type="number" min="1" value="${isEdit?q.pts:25}" placeholder="XP value">
- <div class="row"><button class="btn" onclick="saveQuest2('${type}',${q?q.id:0})">${isEdit?"Save changes":"Add quest"}</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
- document.getElementById("modal").classList.add("show");
-}
-function openGeneralQuest(){form2("Add general quest","general",null)}
-function edit2(type,id){const q=(type==="today"?v2.today:v2.general).find(x=>x.id===id);form2("Edit quest",type,q)}
-function saveQuest2(type,id){
- const name=document.getElementById("qname2").value.trim(),pts=Number(document.getElementById("qpts2").value);
- if(!name||!pts)return;
- const list=type==="today"?v2.today:v2.general;
- if(id){const q=list.find(x=>x.id===id);q.name=name;q.pts=pts}
- else list.push(type==="today"?{id:Date.now(),name,pts,done:false,awardedDate:null}:{id:Date.now(),name,pts,done:false,awarded:false});
- saveV2();closeModal();render2();
-}
-function delete2(type,id){
- if(!confirm("Delete this quest?"))return;
- const key=type==="today"?"today":"general";
- v2[key]=v2[key].filter(q=>q.id!==id);saveV2();render2();
-}
-function editReward2(id){
- const r=v2.rewards.find(x=>x.id===id);
- document.getElementById("sheet").innerHTML=`<h2>Edit reward</h2>
- <input id="rn2" value="${esc2(r.name)}" placeholder="Reward name">
- <input id="rc2" type="number" min="1" value="${r.cost}" placeholder="XP cost">
- <input id="re2" maxlength="2" value="${esc2(r.emoji)}" placeholder="Emoji">
- <div class="row"><button class="btn" onclick="saveReward2(${id})">Save changes</button><button class="btn outline" onclick="closeModal()">Cancel</button></div>`;
- document.getElementById("modal").classList.add("show");
-}
-function saveReward2(id){
- const r=v2.rewards.find(x=>x.id===id),n=document.getElementById("rn2").value.trim(),c=Number(document.getElementById("rc2").value),e=document.getElementById("re2").value||"🎁";
- if(!n||!c)return;r.name=n;r.cost=c;r.emoji=e;saveV2();closeModal();render2();
-}
-function deleteReward2(id){if(!confirm("Delete this reward?"))return;v2.rewards=v2.rewards.filter(r=>r.id!==id);saveV2();render2()}
-function redeem2(id){
- const r=v2.rewards.find(x=>x.id===id);if(!r||v2.xp<r.cost)return;
- v2.xp-=r.cost;v2.redeemed++;saveV2();render2();toast("🛍️ Redeemed: "+r.name);
-}
-render2();
-</script>
-
-</body>
-</html>
+</body></html>
